@@ -123,12 +123,13 @@ public class NacosSourceMonitor extends AbstractSourceMonitor<NacosProviderConfi
             }
         }
 
+        this.clearSourceListeners();
+
         synchronized (this.configListenerMap) {
             this.configListenerMap.clear();
             this.configListenerMap.putAll(map);
         }
 
-        this.clearSourceListeners();
         this.addSourceListeners();
     }
 
