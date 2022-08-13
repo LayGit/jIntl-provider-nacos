@@ -16,6 +16,8 @@ import java.util.Properties;
 @ProviderType("nacos")
 public class NacosProviderConfig extends BaseProviderConfig {
 
+    private static final String DEFAULT_GROUP = "INTL";
+
     private static final Long DEFAULT_FETCH_TIMEOUT = 5000L;
 
     @Override
@@ -44,6 +46,9 @@ public class NacosProviderConfig extends BaseProviderConfig {
     private Properties config;
 
     public String getGroup() {
+        if (group == null) {
+            return DEFAULT_GROUP;
+        }
         return group;
     }
 
