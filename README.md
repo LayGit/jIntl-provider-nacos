@@ -41,5 +41,53 @@ implementation 'com.laylib:jIntl:2.0.0'
 
 Then load gradle changes
 
+### Usage
+
+#### Step 1: Create Index
+Create a new config to nacos
+- Data ID: index.yaml
+- Group: INTL
+- Format: YAML
+- Content:
+```yaml
+global:
+    - en
+```
+
+#### Step 2: Create Source
+Create a new config to nacos
+- Data ID: global_en.yaml
+- Group: INTL
+- Format: YAML
+- Content:
+```yaml
+http:
+  internalServerError: "Internal Server Error"
+```
+
+#### Step 3: Coding
+```java
+import com.alibaba.nacos.api.PropertyKeyConst;
+import com.laylib.jintl.IntlSource;
+import com.laylib.jintl.config.NacosProviderConfig;
+
+import java.util.Locale;
+import java.util.Properties;
+
+class Application {
+    public static void main(String[] args) {
+        NacosProviderConfig providerConfig = new NacosProviderConfig();
+        providerConfig.setGroup("INTL");
+        Properties properties = new Properties();
+        properties.put(PropertyKeyConst.SERVER_ADDR, "127.0.0.1:8848");
+        config.setConfig(properties);
+
+        IntlSource intlSource = new IntlSource(config);
+        String msg = intlSource.getMessage("http.internalServerError", Locale.ENGLISH);
+        System.out.println(msg);
+    }
+}
+```
+
 ### Using with SpringBoot
 See [jIntl-spring-boot-starter](https://github.com/LayGit/jIntl-spring-boot-starter)
